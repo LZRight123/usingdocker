@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.right.shop.dao.TbUserDao">
+    <select id="selectAll" resultType="TbUser">
+        SELECT
+            a.id,
+            a.name,
+            a.gender,
+            a.grade,
+            a.score
+        FROM
+            students AS a;
+    </select>
+    
+    <insert id="insert">
+        INSERT INTO students (
+            `id`,
+            `name`,
+            gender,
+            grade,
+            score
+        )
+        VALUES (
+             #{id},
+             #{name},
+             #{gender},
+             #{grade},
+             #{score}
+               )
+    </insert>
+    <delete id="delete">
+        DELETE  FROM students as a WHERE a.id = #{id};
+    </delete>
+
+
+    <select id="query" resultType="TbUser">
+        SELECT * FROM  students as a WHERE  a.id= #{id};
+    </select>
+
+
+
+
+
+</mapper>

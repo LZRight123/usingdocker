@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--注解方式-->
+    <!--注解好处是配置方便直观。缺点是以硬编码的方式写入到java代码中。-->
+    <!--若注解与`XML`同用，XML的优先级高于注解。-->
+    <context:annotation-config/>
+
+    <!-- 自动扫描注解的bean -->
+    <context:component-scan base-package="com.right.shop"/>
+
+
+
+</beans>

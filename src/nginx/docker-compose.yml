@@ -1,0 +1,16 @@
+
+
+
+version: '3.1'
+
+services:
+  web:
+    image: nginx
+    volumes:
+      - ./etc/nginx:/etc/nginx
+      - ./usr/share/nginx:/usr/share/nginx
+    ports:
+      - "802:80"
+    environment:
+      - NGINX_HOST=foobar.com
+      - NGINX_PORT=80

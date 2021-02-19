@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/mvc
+    https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <description>spring mvc configuration</description>
+    <!--    加载配置属性文件-->
+    <context:property-placeholder ignore-unresolvable="true" location="classpath:tensonflow-web.properties"></context:property-placeholder>
+
+    <!--    默认的注解映射支持 不能少-->
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <constructor-arg value="#{T(java.nio.charset.Charset).forName('UTF-8')}"/>
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>text/plain;charset=UTF-8</value>
+                        <value>text/html;charset=UTF-8</value>
+                        <value>applicaiton/javascript;charset=UTF-8</value>
+                    </list>
+                </property>
+                <property name="writeAcceptCharset"><value>false</value></property>
+            </bean>
+<!--            <bean-->
+<!--                    class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">-->
+<!--                <property name="supportedMediaTypes">-->
+<!--                    <list>-->
+<!--                        <value>application/json; charset=UTF-8</value>-->
+<!--                        <value>application/x-www-form-urlencoded; charset=UTF-8</value>-->
+<!--                    </list>-->
+<!--                </property>-->
+<!--            </bean>-->
+        </mvc:message-converters>
+
+    </mvc:annotation-driven>
+
+    <!--    使用Annotaiton 自动注册Bean 只扫描 @Controller-->
+    <context:component-scan base-package="com.right.shop" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <!--    定认视图文件解析-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!--读取上面配置的 maven-module-admin.propertie 中的变量-->
+        <property name="prefix" value="${web.view.prefix}"></property>
+        <property name="suffix" value="${web.view.suffix}"></property>
+    </bean>
+
+    <!--    静态资源映射-->
+    <mvc:resources mapping="/static/**" location="/static" cache-period="31536000"></mvc:resources>
+</beans>
